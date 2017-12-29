@@ -34,19 +34,19 @@ void SysTick_Handler(void)
 	msTicks++;
 }
 
-void i2c_transfer(uint16_t device_addr, uint8_t cmd_array[], uint8_t data_array[], uint16_t cmd_len, uint16_t data_len, uint16_t flag)
+void I2CTransfer(uint16_t deviceAddr, uint8_t cmdArray[], uint8_t dataArray[], uint16_t cmdLen, uint16_t dataLen, uint16_t flag)
 {
 	I2C_TransferSeq_TypeDef i2cTransfer; // transfer structure
 
 	I2C_TransferReturn_TypeDef result;	//transfer return enum
 
-	i2cTransfer.addr		= device_addr;
+	i2cTransfer.addr		= deviceAddr;
 	i2cTransfer.flags		= flag;
-	i2cTransfer.buf[0].data	= cmd_array;
-	i2cTransfer.buf[0].len	= cmd_len;
+	i2cTransfer.buf[0].data	= cmdArray;
+	i2cTransfer.buf[0].len	= cmdLen;
 
-	i2cTransfer.buf[1].data	= data_array;
-	i2cTransfer.buf[1].len	= data_len;
+	i2cTransfer.buf[1].data	= dataArray;
+	i2cTransfer.buf[1].len	= dataLen;
 
 	result = I2C_TransferInit(I2C1, &i2cTransfer);
 
@@ -60,14 +60,14 @@ void i2c_transfer(uint16_t device_addr, uint8_t cmd_array[], uint8_t data_array[
 	}
 }
 
-uint8_t i2c_read_register(uint8_t addr,uint8_t reg_offset)
+uint8_t i2cReadRegister(uint8_t addr,uint8_t regOffset)
 {
-	uint8_t cmd_array[1];
-	uint8_t data_array[1];
+	uint8_t cmdArray[1];
+	uint8_t dataArray[1];
 
-	cmd_array[0] = reg_offset;
-	i2c_transfer(addr << 1, cmd_array, data_array, 1, 1, I2C_FLAG_WRITE_READ);
-	return data_array[0];
+	cmdArray[0] = regOffset;
+	I2CTransfer(addr << 1, cmdArray, dataArray, 1, 1, I2C_FLAG_WRITE_READ);
+	return dataArray[0];
 }
 
 
@@ -87,7 +87,7 @@ int main(void)
 
 	//initialize BQ2425x
 	bq2425x_t bq2425x;
-	bq2425x.ReadReg = i2c_read_register;
+	bq2425x.ReadReg = i2cReadRegister;
 
 
 

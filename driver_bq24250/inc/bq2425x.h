@@ -1,7 +1,7 @@
 /*
  * driver_bq2425x.h
  *
- *  Created on: 18 àâã. 2017 ã.
+ *  Created on: 18 ï¿½ï¿½ï¿½. 2017 ï¿½.
  *      Author: user
  */
 
@@ -77,8 +77,8 @@ typedef struct {
 } reg_7_state_t;
 
 typedef struct {
-	void (*WriteReg)(uint8_t addr, uint8_t reg_offset, uint8_t data);
-	uint8_t (*ReadReg)(uint8_t addr, uint8_t reg_offset);
+	void (*WriteReg)(uint8_t addr, uint8_t regOffset, uint8_t data);
+	uint8_t (*ReadReg)(uint8_t addr, uint8_t regOffset);
 	reg_1_state_t reg_1_state;
 	reg_2_state_t reg_2_state;
 	reg_3_state_t reg_3_state;
