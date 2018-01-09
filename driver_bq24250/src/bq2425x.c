@@ -1,11 +1,16 @@
 /*
  * bq2425x.c
  *
- *  Created on: 18 àâã. 2017 ã.
+ *  Created on: 18 ï¿½ï¿½ï¿½. 2017 ï¿½.
  *      Author: user
  */
 
 #include "bq2425x.h"
+
+/*!
+\brief Getting all states - parsed results of all registers 
+\param [in] bq2425x Initialized variable of type bq2425x_t
+*/
 
 void BQ2425x_GetAllStates(bq2425x_t * bq2425x)
 {
@@ -26,6 +31,12 @@ void BQ2425x_GetAllStates(bq2425x_t * bq2425x)
 	BQ2425x_ParseReg7(bq2425x, buffer);
 }
 
+/*!
+\brief Parsing of Register #1 result
+\param [out] bq2425x Initialized variable of type bq2425x_t
+\param [in] regval Register #1 value
+*/
+
 void BQ2425x_ParseReg1(bq2425x_t * bq2425x, uint8_t regval) //Parsing values from register 1
 {
 	bq2425x->reg_1_state.fault 		= (regval & 0x0F);
@@ -33,6 +44,12 @@ void BQ2425x_ParseReg1(bq2425x_t * bq2425x, uint8_t regval) //Parsing values fro
 	bq2425x->reg_1_state.wdEn 		= (regval & 0x40) >> 6;
 	bq2425x->reg_1_state.wdFault 	= (regval & 0x80) >> 7;
 }
+
+/*!
+\brief Parsing of Register #2 result
+\param [out] bq2425x Initialized variable of type bq2425x_t
+\param [in] regval Register #2 value
+*/
 
 void BQ2425x_ParseReg2(bq2425x_t * bq2425x, uint8_t regval) //Parsing values from register 2
 {
@@ -44,17 +61,35 @@ void BQ2425x_ParseReg2(bq2425x_t * bq2425x, uint8_t regval) //Parsing values fro
 	bq2425x->reg_2_state.reset		= (regval & 0x80) >> 7;
 }
 
+/*!
+\brief Parsing of Register #3 result
+\param [out] bq2425x Initialized variable of type bq2425x_t
+\param [in] regval Register #3 value
+*/
+
 void BQ2425x_ParseReg3(bq2425x_t * bq2425x, uint8_t regval) //Parsing values from register 3
 {
 	bq2425x->reg_3_state.usbDet		= (regval & 0x03);
 	bq2425x->reg_3_state.vBatReg	= (regval & 0xFC) >> 2;
 }
 
+/*!
+\brief Parsing of Register #4 result
+\param [out] bq2425x Initialized variable of type bq2425x_t
+\param [in] regval Register #4 value
+*/
+
 void BQ2425x_ParseReg4(bq2425x_t * bq2425x, uint8_t regval) //Parsing values from register 4
 {
 	bq2425x->reg_4_state.iTerm		= (regval & 0x07);
 	bq2425x->reg_4_state.iCHG		= (regval & 0xF8) >> 3;
 }
+
+/*!
+\brief Parsing of Register #5 result
+\param [out] bq2425x Initialized variable of type bq2425x_t
+\param [in] regval Register #5 value
+*/
 
 void BQ2425x_ParseReg5(bq2425x_t * bq2425x, uint8_t regval) //Parsing values from register 5
 {
@@ -65,6 +100,12 @@ void BQ2425x_ParseReg5(bq2425x_t * bq2425x, uint8_t regval) //Parsing values fro
 	bq2425x->reg_5_state.loopStatus	= (regval & 0xC0) >> 6;
 }
 
+/*!
+\brief Parsing of Register #6 result
+\param [out] bq2425x Initialized variable of type bq2425x_t
+\param [in] regval Register #6 value
+*/
+
 void BQ2425x_ParseReg6(bq2425x_t * bq2425x, uint8_t regval) //Parsing values from register 6
 {
 	bq2425x->reg_6_state.tsStat		= (regval & 0x07);
@@ -73,6 +114,12 @@ void BQ2425x_ParseReg6(bq2425x_t * bq2425x, uint8_t regval) //Parsing values fro
 	bq2425x->reg_6_state.tmr		= (regval & 0x60) >> 5;
 	bq2425x->reg_6_state.x2TmrEn	= (regval & 0x80) >> 7;
 }
+
+/*!
+\brief Parsing of Register #6 result
+\param [out] bq2425x Initialized variable of type bq2425x_t
+\param [in] regval Register #6 value
+*/
 
 void BQ2425x_ParseReg7(bq2425x_t * bq2425x, uint8_t regval) //Parsing values from register 7
 {
